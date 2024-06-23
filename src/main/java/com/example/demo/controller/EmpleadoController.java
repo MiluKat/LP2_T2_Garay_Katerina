@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.entity.AreaEntity;
 import com.example.demo.entity.EmpleadoEntity;
 import com.example.demo.repository.AreaRepository;
 import com.example.demo.repository.EmpleadoRepository;
@@ -24,5 +27,20 @@ public class EmpleadoController {
 		List<EmpleadoEntity> listaEmpleados = empleadoRepository.findAll();
 		model.addAttribute("listaEmpleados", listaEmpleados);
 		return "home";
+	}
+	
+	@GetMapping("/registrar_empleado")
+	public String showResgistrarEmpleado (Model model){
+		List<AreaEntity>listaAreas = areaRepository.findAll();
+		model.addAttribute("listaAreas", listaAreas);
+		model.addAttribute("empleado", new EmpleadoEntity());
+		return "registrar_empleado";
+	}	
+	
+	@PostMapping("/registrar_empleado")
+	public String registrarEmpleado (Model model,@ModelAttribute EmpleadoEntity empleado) {
+		empleadoRepository.save(empleado);
+		return "redirect:/listar";
+		
 	}
 }

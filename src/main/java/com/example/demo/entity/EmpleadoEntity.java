@@ -40,9 +40,9 @@ public class EmpleadoEntity {
 	@Column (name = "apellido_empleado", nullable = false, length = 45)
 	private String apeEmp;
 	
-	@Column (name = "fecha_nacimiento") 
-	@Temporal(TemporalType.DATE)
-	private Date fechaNac;
+	@Column (name = "fecha_nacimiento", nullable = false, length = 45) 
+	/*@Temporal(TemporalType.TIMESTAMP)*/
+	private String fechaNac;
 	
 	@Column (name = "direccion", length = 45)
 	private String direccion;
