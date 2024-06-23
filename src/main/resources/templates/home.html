@@ -36,7 +36,8 @@
             <td th:text="${e.areaEntity.nomArea}"></td>
 			<td>
             <a th:href="@{/detalle_empleado/{id}(id=${e.dniEmp})}" class="btn btn-info">Ver</a> |
-            <a th:href="@{/editar_empleado/{id}(id=${e.dniEmp})}" class="btn btn-warning">Editar</a>  
+            <a th:href="@{/editar_empleado/{id}(id=${e.dniEmp})}" class="btn btn-warning">Editar</a> |  
+            <a th:href="@{/delete/{id}(id=${e.dniEmp})}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>

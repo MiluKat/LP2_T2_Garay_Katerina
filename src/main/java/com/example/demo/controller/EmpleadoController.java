@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.AreaEntity;
@@ -43,4 +44,45 @@ public class EmpleadoController {
 		return "redirect:/listar";
 		
 	}
+	//Buscar empelado por id
+	/*@GetMapping"/detalle_empleado/{id}")
+	public String verEmpleado (Model model,@PathVariable("Id") String id) {
+		EmpleadoEntity empleadoEncontrado = repository.findById.get();
+		model.addAttribute("empleado", empleadoEncontrado);
+		return "detalle_empleado";
+	}*/
+	
+	@GetMapping("/detalle_empleado/{id}")
+	public String verUsuario(Model model, @PathVariable("id")String id) {
+		EmpleadoEntity empleadoEncontrado = empleadoRepository.findById(id).get();
+		model.addAttribute("empleado",empleadoEncontrado);
+		return "detalle_empleado";
+		
+	}
+	
+	@GetMapping("/editar_empleado/{id}")
+	public String showActualizarEmpleado(Model model, @PathVariable("id")String id) {
+		EmpleadoEntity empleadoEncontrado = empleadoRepository.findById(id).get();
+		List<AreaEntity>listaAreas = areaRepository.findAll();
+		model.addAttribute("listaAreas", listaAreas);
+		model.addAttribute("empleado",empleadoEncontrado);
+		return "editar_empleado";
+		
+	}
+	
+	@PostMapping("/editar_empleado/{id}")
+	public String actualizarEmpleado (Model model,@ModelAttribute EmpleadoEntity empleado) {
+		empleadoRepository.save(empleado);
+		
+		return "redirect:/listar";
+		
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String eliminarUsuario(@PathVariable("id")String id) {
+		empleadoRepository.deleteById(id);
+		return "redirect:/listar";
+	}
+	
+
 }
